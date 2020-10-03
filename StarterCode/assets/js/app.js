@@ -120,6 +120,27 @@ var yLinearScale = d3.scaleLinear()
   .range([chartHeight, 0]);
 
 
+  var circlesGroup = chartGroup.selectAll("circle")
+  .data(healthdata)
+  .enter()
+  .append("circle")
+  .attr("cx", d => xLinearScale(d.poverty))
+  .attr("cy", d => yLinearScale(d.obesity))
+  .attr("r", "15")
+  .attr("fill", "blue")
+  .attr("opacity", ".5")
+
+
+ var circletext= chartGroup.selectAll("text")
+  .data(healthdata)
+  .enter()
+  .append("text")
+  .attr("x", d => xLinearScale(d.poverty))
+  .attr("y", d => yLinearScale(d.obesity))
+  .attr("dx","-10")
+  .attr("dy", "5")
+  .text(d=>d.abbr)
+
 
 
 
@@ -202,45 +223,58 @@ yLabel.append("text")
 
 
 //circles
-  var circlesGroup = chartGroup.selectAll("circle")
-  .data(healthdata)
-  .enter()
-  .append("circle")
-  .attr("cx", d => xLinearScale(d.poverty))
-  .attr("cy", d => yLinearScale(d.obesity))
-  .attr("r", "15")
-  .attr("fill", "blue")
-  .attr("opacity", ".5")
+ 
+ 
+
+  console.log(healthdata);
   // .on("mouseover", function(data) {
   //   toolTip.show(data)})
   // .on("mouseout", function(data) {
   //   toolTip.hide(data)});
   
-  // circlesGroup
-  // .append("text")
-  // .attr("cx", d => xLinearScale(d.poverty))
-  // .attr("cy", d => yLinearScale(d.obesity))
-  // .attr("r", "15")
+
+  //circles text
+
+
+
+
+
 
 
   var toolTip = d3.tip()
-    .attr("class", "tooltip")
+    .attr("class", "d3-tip")
     .offset([80, -60])
     .html(function(d) {
       return (`${d.poverty}<br> ${d.obesity}`);
     });
 
-  circlesGroup.call(toolTip);
+  chartGroup.call(toolTip);
 
-  circlesGroup.on("mouseover", function(data) {
-    toolTip.show(data);
-  })
-    // onmouseout event
-    .on("mouseout", function(data, index) {
-      toolTip.hide(data);
-    });
 
-  return circlesGroup;
+  
+  // circlesGroup.on("mouseover", function(data) {
+  //   toolTip.show(data);
+  //   console.log("mouseover")
+  // })
+  //   // onmouseout event
+  //   .on("mouseout", function(data, index) {
+  //     toolTip.hide(data);
+  //     console.log("mouseout")
+  //   });
+
+
+
+
+    circletext.on("mouseover", function(data) {
+      toolTip.show(data);
+      console.log("mouseover")
+    })
+      // onmouseout event
+      .on("mouseout", function(data, index) {
+        toolTip.hide(data);
+        console.log("mouseout")
+      });
+  // return circlesGroup;
 
 
 
