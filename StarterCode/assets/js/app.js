@@ -49,11 +49,6 @@ d3.csv("data.csv").then(function(healthdata, err) {
   }
 
 
-
-
-
-
-
   function renderAxes(newXScale, xAxis) {
     var bottomAxis = d3.axisBottom(newXScale);
   
@@ -106,11 +101,6 @@ d3.csv("data.csv").then(function(healthdata, err) {
 
 
   var xLinearScale = xScale(healthdata, chosenXAxis);
-  // var xLinearScale = d3.scaleLinear()
-  // .domain([d3.min(healthdata, d => d.poverty)*.8, d3.max(healthdata, d => d.poverty)])
-  // .range([0, chartWidth]);
-
-
 
 
 
@@ -142,10 +132,6 @@ var yLinearScale = d3.scaleLinear()
   .text(d=>d.abbr)
 
 
-
-
-// Create two new functions passing our scales in as arguments
-// These will be used to create the chart's axes
 var bottomAxis = d3.axisBottom(xLinearScale);
 var leftAxis = d3.axisLeft(yLinearScale);
 
@@ -158,20 +144,11 @@ var xAxis=chartGroup.append("g")
   .classed("x-axis", true)
   .attr("transform", `translate(0, ${chartHeight})`)
   .call(bottomAxis);
-// Append two SVG group elements to the chartGroup area,
-// and create the bottom and left axes inside of them
-
-
 
 
 
 var yAxis=chartGroup.append("g")
   .call(leftAxis);
-
-// var xLabel=chartGroup.append("g")
-//   .attr("transform", `translate(${chartWidth/2}, ${chartHeight+20})`);
-  
-
 
 
 
@@ -191,23 +168,11 @@ var povertylabel = labelsGroup.append("text")
 .classed("active", true)
 .text("Poverty %");
 
-// var otherlabel = labelsGroup.append("text")
-// .attr("x", 0)
-// .attr("y", 20)
-// .attr("value", "obesity") // value to grab for event listener
-// .classed("inactive", true)
-// .text("Other Label");
 
 
 var yLabel = chartGroup.append("g")
   .attr("transform","rotate(-90)");
 
-
-// xLabel.append("text")
-//   .attr("y",20)
-//   .attr("value","poverty")
-//   .classed("active", true)
-//   .text("In Poverty (%)");
 
 
 
@@ -222,22 +187,6 @@ yLabel.append("text")
 
 
 
-//circles
- 
- 
-
-  console.log(healthdata);
-  // .on("mouseover", function(data) {
-  //   toolTip.show(data)})
-  // .on("mouseout", function(data) {
-  //   toolTip.hide(data)});
-  
-
-  //circles text
-
-
-
-
 
 
 
@@ -245,22 +194,11 @@ yLabel.append("text")
     .attr("class", "d3-tip")
     .offset([80, -60])
     .html(function(d) {
-      return (`${d.poverty}<br> ${d.obesity}`);
+      return (`${d.state}<br>Poverty %: ${d.poverty}<br>Obesity %: ${d.obesity}`);
     });
 
   chartGroup.call(toolTip);
 
-
-  
-  // circlesGroup.on("mouseover", function(data) {
-  //   toolTip.show(data);
-  //   console.log("mouseover")
-  // })
-  //   // onmouseout event
-  //   .on("mouseout", function(data, index) {
-  //     toolTip.hide(data);
-  //     console.log("mouseout")
-  //   });
 
 
 
@@ -274,37 +212,10 @@ yLabel.append("text")
         toolTip.hide(data);
         console.log("mouseout")
       });
-  // return circlesGroup;
+  
 
 
 
-
-
- 
-    // labelsGroup.selectAll("text")
-    // .on("click", function() {
-    //   // get value of selection
-    //   var value = d3.select(this).attr("value");
-    //   if (value !== chosenXAxis) {
-
-    //     // replaces chosenXAxis with value
-    //     chosenXAxis = value;
-
-    //     console.log(chosenXAxis)
-
-    //     // functions here found above csv import
-    //     // updates x scale for new data
-    //     xLinearScale = xScale(healthdata, chosenXAxis);
-
-    //     // updates x axis with transition
-    //     xAxis = renderAxes(xLinearScale, xAxis);
-
-    //     // updates circles with new x values
-    //     circlesGroup = renderCircles(circlesGroup, xLinearScale, chosenXAxis);
-    //   }
-    // })
-
-    
 
 
 
